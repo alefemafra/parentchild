@@ -1,26 +1,42 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from "react";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+import ListAdd from "./ListAdd";
+import List from "./List";
+
+class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      list: [{ name: "ricardo" }, { name: "alefe" }]
+    };
+
+    this.childHandler = this.childHandler.bind(this);
+  }
+
+  componentDidMount() {
+    const list = localStorage.getItem("list");
+
+    this.setState({ list: JSON.parse(list) });
+  }
+
+  childHandler(data) {
+    this.setState(state => {
+      const list = [...state.list, data];
+
+      localStorage.setItem("list", JSON.stringify(list));
+
+      return { list };
+    });
+  }
+
+  render() {
+    return (
+      <>
+        <List list={this.state.list} />
+        <ListAdd list={this.state.list} childHandler={this.childHandler} />
+      </>
+    );
+  }
 }
 
 export default App;
