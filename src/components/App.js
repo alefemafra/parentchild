@@ -4,6 +4,8 @@ import ListAdd from "./Lista/ListAdd";
 import List from "./Lista/List";
 import UserList from "./user/UserList";
 import UserAdd from "./user/UserAdd";
+import Sorteador from "./sorteador";
+import './style.css';
 
 export default class App extends Component {
   constructor(props) {
@@ -56,16 +58,22 @@ export default class App extends Component {
 
   render() {
     return (
-        <>
+        <div className="general">
           <div>
+            <h3>Adicionar e selecionar lista</h3>
             <ListAdd list={this.state.list} childHandler={this.childHandler} />
             <List list={this.state.list} activeList={this.activeList} />
           </div>
           <div>
-            <UserList listactive={this.state.listactive} />
+            <h3>Adicionar Usuarios | Ver lista de usuarios</h3>
             <UserAdd listactive={this.state.listactive} addUser={this.addUser} />
+            <UserList listactive={this.state.listactive} />
           </div>
-        </>
+          <div>
+            <h3>Sortear</h3>
+            <Sorteador listactive={this.state.listactive} />
+          </div>
+        </div>
     );
   }
 }
