@@ -42,10 +42,7 @@ export default class App extends Component {
     if (localStorage.getItem(this.state.listactive.lista) != null){
       this.state.listactive.users.push(data.user);
       localStorage.setItem(this.state.listactive.lista, JSON.stringify(this.state.listactive));
-      this.setState(state => {
-        const users = [...state.users, this.state.listactive.users];
-        return { users };
-      });
+      this.setState({listactive: this.state.listactive});
 
     }
   }
